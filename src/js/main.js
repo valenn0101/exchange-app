@@ -1,27 +1,24 @@
+let listadoDeDivisas = [];
+let cantidadDeDinero = document.getElementById("cantidad-de-dinero").value;
+const fechaPredeterminada = new Date().toLocaleDateString();
+let fechaElegida = document.getElementById("fecha").value;
+let divisaElegida = document.getElementById("selector-de-divisas");
+const botonConvertir = document.getElementById("convertir");
 
-const listaDePrueba = [
-    { symbol: "USD", name: "Dolar Estadounidense" },
-    { symbol: "EUR", name: "Euro" },
-    { symbol: "GBP", name: "Libra" },
-    { symbol: "JPY", name: "Yenes" },
-];
-function procesarSimbolos(simbolos) {
-    Object.keys(simbolos).forEach(function(clave) {
-      const valor = simbolos[clave];
-      console.log(`description: ${valor.description}, code: ${valor.code}`);
-    });
+function imprimirMonedas(respuestaJSON){
+  const monedas = respuestaJSON.symbols;
+  let listaDeDivisas = [];
+  for(const divisas in monedas){
+    listaDeDivisas.push(divisas);
+    listadoDeDivisas.push(divisas);
   }
+  const selector = document.querySelector("#selector-de-divisas");
 
-const selector = document.querySelector("#selector-de-divisas");
-
-listaDePrueba.forEach(function(currency) {
-    const option = document.createElement("option");
-    option.value = currency.symbol;
-    option.textContent = currency.name;
-    selector.appendChild(option);
+  listadoDeDivisas.forEach(function($divisa) {
+    const opcionesDeDivisas = document.createElement("option");
+    opcionesDeDivisas.value = $divisa;
+    opcionesDeDivisas.textContent = $divisa;
+    selector.appendChild(opcionesDeDivisas);
 });
-obtenerDivisas()
-
-
-const today = new Date().toLocaleDateString();
-document.querySelector("#fecha").setAttribute("max", today);
+return listaDeDivisas;
+}

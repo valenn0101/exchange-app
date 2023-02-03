@@ -1,25 +1,29 @@
-function obtenerDivisas() {
-  const requestURL = 'https://api.exchangerate.host/symbols';
-  const request = new XMLHttpRequest();
-  request.open('GET', requestURL);
-  request.responseType = 'json';
-  request.send();
+fetch("https://api.exchangerate.host/symbols")
+  .then(respuesta => respuesta.json())
+  .then(respuestaJSON => {
+    imprimirMonedas(respuestaJSON);
+  })
 
-  request.onload = function() {
-    const response = request.response;
-    procesarSimbolos(response.symbols);
+  function cargarHistorialDeCambios(base, symbols, startDate, endDate){
+    const requestURL = 'https://api.exchangerate.host/history?base=' + base + '&symbols=' + symbols + '&start_at=' + startDate + '&end_at=' + endDate;
+    fetch(requestURL)
+    .then(respuesta => respuesta.json())
+    .then(cambiosJSON =>{
+      console.log(cambiosJSON)
+      //cargarHistorial(cambiosJSON);
+    })
   }
-}
 
-function obtenerHistorialDeCambios(base, symbols, startDate, endDate) {
-  const requestURL = 'https://api.exchangerate.host/history?base=' + base + '&symbols=' + symbols + '&start_at=' + startDate + '&end_at=' + endDate;
-  const request = new XMLHttpRequest();
-  request.open('GET', requestURL);
-  request.responseType = 'json';
-  request.send();
-
-  request.onload = function() {
-    const response = request.response;
-    console.log(response);
+  
+  function cargarHistorialDeCambiosDinero(cantidad, divisa, divisasTotales, fechaDeInicio, fechaFinal){
+    const requestURL = `https://api.exchangerate.host/timeseries?amount=${cantidad}&base=${divisa}&symbols=${divisasTotales}&start_date=${fechaDeInicio}&end_date=${fechaFinal}`;
+    fetch(requestURL)
+    .then(respuesta => respuesta.json())
+    .then(historiaJSON=>{
+      console.log(historiaJSON)
+    })
   }
-}
+
+  cargarHistorialDeCambiosDinero(1000, 'USD', 'EUR,CZK', '2023-02-01', '2023-02-03');
+
+

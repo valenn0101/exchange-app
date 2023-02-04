@@ -1,8 +1,4 @@
-let listadoDeDivisas = [];
-let cantidadDeDinero = document.getElementById("cantidad-de-dinero").value;
-const fechaPredeterminada = new Date().toLocaleDateString();
-let fechaElegida = document.getElementById("fecha").value;
-let divisaElegida = document.getElementById("selector-de-divisas");
+let listadoDeDivisas = []; 
 const botonConvertir = document.getElementById("convertir");
 
 function imprimirMonedas(respuestaJSON){
@@ -21,4 +17,14 @@ function imprimirMonedas(respuestaJSON){
     selector.appendChild(opcionesDeDivisas);
 });
 return listaDeDivisas;
+}
+
+botonConvertir.onclick = function(event){
+  let cantidadAConvertir = document.querySelector("#cantidad-de-dinero");
+  let divisaElegida = document.querySelector("#selector-de-divisas");
+ // const fechaPredeterminada = new Date().toLocaleDateString();
+  let fechaElegida = document.querySelector("#fecha");
+  divisasTotales = "USD, YEN, AUD, ARS";
+  cargarHistorialDeCambios(Number(cantidadAConvertir.value), divisaElegida.value, 'EUR,CZK' ,fechaElegida.value , '2023-02-03');
+  event.preventDefault();
 }

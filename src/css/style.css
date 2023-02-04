@@ -33,6 +33,17 @@ body{
     grid-template-rows: 60px 150px auto 50px;
 
 }
+.main-container{
+    display: grid;
+    grid-template-columns: 40% 20% 40%;
+}
+
+.primera-fecha{
+    border: 1px solid black;
+}
+.segunda-fecha{
+    border: 1px solid black;
+}
 
 .header{
     grid-area: header;
@@ -50,7 +61,8 @@ body{
 .navbar{
     grid-area: navbar;
     background: rgb(35,18,11);
-    background: linear-gradient(180deg, rgba(35,18,11,1) 0%, rgba(57,62,70,1) 49%);     display: flex;
+    background: linear-gradient(180deg, rgba(35,18,11,1) 0%, rgba(57,62,70,1) 49%);     
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -75,8 +87,10 @@ body{
 }
 .main{
     grid-area: main;
+    background-color: rgba(128, 128, 128, 0.5);
 }
 .footer{
+    background-color: #23120B;
     grid-area: footer;
 }
 
@@ -92,4 +106,7 @@ body{
 }
 .input-m{
     width: 100%;
+}
+.input-fecha{
+    color: white;
 }

@@ -23,13 +23,24 @@
                 <input type="number" name="Cantidad" id="cantidad-de-dinero" class="input-sm" value="1">
                 <select name="divisas-mundiales" id="selector-de-divisas" class="form-select" aria-label="Default select example">
                 </select>
-                <input type="date" id="fecha" class="input-m" value="">
-                <button id="convertir" class="btn btn-warning" type="submit">Convertir</button>
+                <div>
+                    <label for="fecha-inicial" class="input-fecha">Fecha Inicial</label>
+                    <input type="date" id="fecha-inicial" class="input-m" value="">
+                </div>
+                <div>
+                    <label for="fecha-final" class="input-fecha">Fecha Final</label>
+                    <input type="date" id="fecha-final" class="input-m" value="" disabled="true">
+                </div>
+                <button id="convertir" class="btn btn-warning" type="submit" disabled="true">Convertir</button>
             </form>
         </div>
     </nav>
     <main class="main">
-        <h1 class="respuestas-api"></h1>
+        <div class="main-container">
+            <section id="dia-inicial" class="primera-fecha">DIA INICIAL</section>
+            <section id="cambio-de-valor">FLUCTUACION</section>
+            <section id="dia-final" class="segunda-fecha">DIA FINAL</section>
+        </div>
     </main>
     <footer class="footer">FOOTER</footer>
     <script type="text/javascript" src="src/js/data.js"></script>

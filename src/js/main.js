@@ -5,6 +5,7 @@ const botonConvertir = document.getElementById("convertir");
 const listaDelPrimerDia = document.querySelector("#dia-inicial");
 const listaDelSegundoDia = document.querySelector("#dia-final");
 const fluctuacionDeValor = document.querySelector("#cambio-de-valor");
+const $mainContainer = document.getElementById("contenedor-principal");
 
 function imprimirMonedas(respuestaJSON) {
   const monedas = respuestaJSON.symbols;
@@ -71,39 +72,67 @@ function obtenerPrimerUltimoValor(objetoJSON) {
   const primerValor = rates[primerFecha];
   const ultimoValor = rates[ultimaFecha];
 
-  crearListaDeValores(primerValor, ultimoValor);
-  compararValores(primerValor, ultimoValor);
+  crearListaDeDivisas(primerValor, ultimoValor) 
+  // compararValores(primerValor, ultimoValor);
 }
 
 function crearListaDeValores(primerValor, ultimoValor) {
-  let i = 1;
-
+  const filaDeDivisas = document.createElement("div");
+  
   for (const divisaInicial in primerValor) {
     const precio = primerValor[divisaInicial];
-    const h1 = document.createElement("h1");
-    h1.textContent = `${divisaInicial}: ${precio}`;
-    h1.classList.add(`precio${i}`);
-    listaDelPrimerDia.appendChild(h1);
-    i++;
+    const h2 = document.createElement("h2");
+    h2.textContent = `${divisaInicial}: ${precio}`;
+    h2.classList.add("primerValor");
+    filaDeDivisas.appendChild(h2);
   }
-  let ii= 1
   for (const divisaFinal in ultimoValor) {
     const precio = ultimoValor[divisaFinal];
-    const h1 = document.createElement("h1");
-    h1.textContent = `${divisaFinal}: ${precio}`;
-    h1.classList.add(`precio${ii}`);
-    listaDelSegundoDia.appendChild(h1);
-    i++;
+    const h2 = document.createElement("h2");
+    h2.textContent = `${divisaFinal}: ${precio}`;
+    h2.classList.add("ultimoValor");
+    filaDeDivisas.appendChild(h2);
   }
+  const mainContainer = document.querySelector(".main-container");
+  mainContainer.appendChild(filaDeDivisas);
 }
+
+function crearListaDeDivisas(primerValor, ultimoValor){
+    $mainContainer.innerHTML += `
+    <div class="filaDeDivisas"> <div class="primera-fecha"></div> <div class="cambioDePrecios"></div> <div class="segunda-fecha"></div> </div>`
+    for(const divisaInicial in primerValor){
+      const precio = primerValor[divisaInicial];
+      const h2 = document.createElement("h2");
+      h2.textContent = `${divisaInicial}: ${precio}`;
+      h2.classList.add("ultimoValor");
+      document.querySelector(".primera-fecha").appendChild(h2);
+    }
+    for(const divisaFinal in ultimoValor){
+      const precio = ultimoValor[divisaFinal];
+      const h2 = document.createElement("h2");
+      h2.textContent = `${divisaFinal}: ${precio}`;
+      h2.classList.add("ultimoValor");
+      document.querySelector(".segunda-fecha").appendChild(h2);
+    }
+}
+
+
+
 function compararValores(primerValor, ultimoValor) {
-  for (const cambioDeValor in primerValor) {
+  for (const cambioDeValor in primerValor && ultimoValor) {
     const precioInicial = primerValor[cambioDeValor];
     const precioFinal = ultimoValor[cambioDeValor];
     const porcentajeDeCambio =
       ((precioFinal - precioInicial) / precioInicial) * 100;
     const porcentajeReducido = porcentajeDeCambio.toFixed(2);
     const h2 = document.createElement("h2");
+    if(porcentajeReducido >0){
+      h2.classList.add("subio")
+    } else if(porcentajeDeCambio < 0){
+      h2.classList.add("bajo")
+    } else{
+      h2.classList.add("igual-valor")
+    }
     h2.textContent = `${porcentajeReducido}%`;
     fluctuacionDeValor.appendChild(h2);
   }

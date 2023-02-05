@@ -31,20 +31,7 @@ body{
     "main"
     "footer";
     grid-template-rows: 60px 150px auto 50px;
-
 }
-.main-container{
-    display: grid;
-    grid-template-columns: 40% 20% 40%;
-}
-
-.primera-fecha{
-    border: 1px solid black;
-}
-.segunda-fecha{
-    border: 1px solid black;
-}
-
 .header{
     grid-area: header;
     background-color: #23120B;
@@ -89,6 +76,10 @@ body{
     grid-area: main;
     background-color: rgba(128, 128, 128, 0.5);
 }
+.filaDeDivisas{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
 .footer{
     background-color: #23120B;
     grid-area: footer;
@@ -97,6 +88,9 @@ body{
 @media only screen and (max-width: 768px) {
     .header p {
       font-size: 25px;
+    }
+    .precios{
+        max-width: 100%;
     }
 }
 
@@ -109,4 +103,28 @@ body{
 }
 .input-fecha{
     color: white;
+}
+.subio{
+    color: green;
+    border: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.bajo{
+    color: red;
+    border: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.igual-valor{
+    border: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.precios{
+    border: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }

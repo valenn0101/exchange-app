@@ -11,7 +11,6 @@ fetch("https://api.exchangerate.host/symbols")
     .then(respuesta => respuesta.json())
     .then(historiaJSON => {
       obtenerPrimerUltimoValor(historiaJSON);
-
     });
   }
 

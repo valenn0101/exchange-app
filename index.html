@@ -19,7 +19,7 @@
     <nav class="navbar">
         <div class="contenedor-de-formulario">
         <h1>¿Que quieres convertir?</h1>
-            <form id="formulario" class="formulario" name="conversor" method="get">
+            <form id="formulario" class="formulario" name="conversor" method="get" onsubmit="return false" >
                 <input type="number" name="Cantidad" id="cantidad-de-dinero" class="input-sm" value="1">
                 <select name="divisas-mundiales" id="selector-de-divisas" class="form-select" aria-label="Default select example">
                 </select>
@@ -36,14 +36,18 @@
         </div>
     </nav>
     <main class="main">
+        <section id="erroresMontos" ></section>
+        <section id="errores-primera-fecha"></section>
+        <section id="errores-segunda-fecha"></section>
         <div class="main-container">
-            <section id="dia-inicial" class="primera-fecha"><h2>Dia Inicial</h2></section>
-            <section id="cambio-de-valor" class="cambio-de-valor"><h2>Cambio en el Valor</h2></section>
-            <section id="dia-final" class="segunda-fecha"><h2>Dia Final</h2></section>
+            <section id="dia-inicial" class="primera-fecha"></section>
+            <section id="cambio-de-valor" class="cambio-de-valor"></section>
+            <section id="dia-final" class="segunda-fecha"></section>
         </div>
     </main>
     <footer class="footer"><p>Copyright © Valentin Veron Caceres</p></footer>
     <script type="text/javascript" src="src/js/data.js"></script>
     <script type="text/javascript" src="src/js/main.js"></script>
+    <script type="text/javascript" src="src/js/tests.js"></script>
 </body>
 </html>

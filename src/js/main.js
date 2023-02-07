@@ -1,11 +1,13 @@
 let listaDeDivisas = [];
 let fechaInicial = document.querySelector("#fecha-inicial");
 let fechaFinal = document.querySelector("#fecha-final");
+let cantidadAConvertir = document.querySelector("#cantidad-de-dinero");
 const botonConvertir = document.getElementById("convertir");
 const listaDelPrimerDia = document.querySelector("#dia-inicial");
 const listaDelSegundoDia = document.querySelector("#dia-final");
 const fluctuacionDeValor = document.querySelector("#cambio-de-valor");
 const $mainContainer = document.getElementById("contenedor-principal");
+
 
 function imprimirMonedas(respuestaJSON) {
   const monedas = respuestaJSON.symbols;
@@ -51,8 +53,13 @@ function obtenerOpcionesDelSelect() {
 }
 
 let listadoDeDivisas = obtenerOpcionesDelSelect();
-botonConvertir.onclick = function (event) {
-  let cantidadAConvertir = document.querySelector("#cantidad-de-dinero");
+botonConvertir.onclick = function () {
+  validarFormularioMontos();
+  validarFormularioFechas();  
+  borrarConversionAnterior();
+  if(hayErrorMontos || hayErrorPrimeraFecha || hayErrorSegundaFecha){
+    return;
+  }
   let divisaElegida = document.querySelector("#selector-de-divisas");
   cargarHistorialDeCambios(
     Number(cantidadAConvertir.value),
@@ -61,8 +68,8 @@ botonConvertir.onclick = function (event) {
     fechaInicial.value,
     fechaFinal.value
   );
-  event.preventDefault();
 };
+
 
 function obtenerPrimerUltimoValor(objetoJSON) {
   const rates = objetoJSON.rates;
@@ -113,3 +120,8 @@ function compararValores(primerValor, ultimoValor) {
     h3.textContent = `${porcentajeReducido}%`;
     fluctuacionDeValor.appendChild(h3);
   }}
+function borrarConversionAnterior(){
+  listaDelPrimerDia.innerHTML = "";
+  listaDelSegundoDia.innerHTML = "";
+  fluctuacionDeValor.innerHTML = "";
+}

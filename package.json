@@ -2,7 +2,7 @@
   "name": "exchange-app",
   "version": "1.0.0",
   "description": "Aplicacion para saber el valor de las monedas",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
     "start": "http-server -c -1",
     "cypress-run": "cypress run",

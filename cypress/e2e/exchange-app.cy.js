@@ -52,11 +52,11 @@ describe('Ingresar datos y verificar resultados',()=>{
   })
 })
 
-describe('Ingresar datos y verificar resultados',()=>{
+describe('Test de datos correctos',()=>{
   beforeEach(()=>{
     cy.visit(URL);
   });
-  it('Completar el formulario de forma erronea',()=>{
+  it('Completar el formulario de forma correcta',()=>{
     cy.get("#cantidad-de-dinero").type('2');
     cy.get('#selector-de-divisas').select('EUR');
     cy.get('#fecha-inicial').type('2023-01-01');
@@ -66,3 +66,45 @@ describe('Ingresar datos y verificar resultados',()=>{
     cy.get('#convertir').click();
   })
 })
+
+describe('Verificar la funcionalidad de la API exchange', () => {
+    beforeEach(()=>{
+    cy.visit(URL);
+  });
+  it('Verifica que la API devuelve una respuesta exitosa', () => {
+    cy.request('https://api.exchangerate.host/symbols')
+      .its('status')
+      .should('equal', 200)
+  });
+
+  it('Verifica que la API devuelve los símbolos de las divisas disponibles', () => {
+    cy.request('https://api.exchangerate.host/symbols')
+      .its('body')
+      .then((symbols) => {
+        expect(symbols).to.have.property('success');
+        expect(symbols.success).to.be.true;
+        expect(symbols).to.have.property('symbols');
+        expect(symbols.symbols).to.not.be.empty;
+      });
+  });
+  it('Verifica que la API devuelve los cambios de divisas correctos', () => {
+    const cantidadAConvertir = 1;
+    const divisaElegida = 'USD';
+    const divisasTotales = 'EUR,GBP,CAD,MXN';
+    const fechaPredeterminada = '2022-01-01';
+    const fechaElegida = '2022-01-01';
+    cy.request(`https://api.exchangerate.host/timeseries?amount=${cantidadAConvertir}&base=${divisaElegida}&symbols=${divisasTotales}&start_date=${fechaPredeterminada}&end_date=${fechaElegida}`)
+      .its('body')
+      .then((historia) => {
+        expect(historia).to.have.property('base');
+        expect(historia.base).to.equal(divisaElegida);
+        expect(historia).to.have.property('start_date');
+        expect(historia.start_date).to.equal(fechaPredeterminada);
+        expect(historia).to.have.property('end_date');
+        expect(historia.end_date).to.equal(fechaElegida);
+        expect(historia).to.have.property('rates');
+        expect(historia.rates).to.not.be.empty;
+      });
+  });
+    
+});

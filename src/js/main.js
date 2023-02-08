@@ -8,7 +8,6 @@ const listaDelSegundoDia = document.querySelector("#dia-final");
 const fluctuacionDeValor = document.querySelector("#cambio-de-valor");
 const $mainContainer = document.getElementById("contenedor-principal");
 
-
 function imprimirMonedas(respuestaJSON) {
   const monedas = respuestaJSON.symbols;
   for (const divisas in monedas) {
@@ -55,9 +54,9 @@ function obtenerOpcionesDelSelect() {
 let listadoDeDivisas = obtenerOpcionesDelSelect();
 botonConvertir.onclick = function () {
   validarFormularioMontos();
-  validarFormularioFechas();  
+  validarFormularioFechas();
   borrarConversionAnterior();
-  if(hayErrorMontos || hayErrorPrimeraFecha || hayErrorSegundaFecha){
+  if (hayErrorMontos || hayErrorPrimeraFecha || hayErrorSegundaFecha) {
     return;
   }
   let divisaElegida = document.querySelector("#selector-de-divisas");
@@ -70,7 +69,6 @@ botonConvertir.onclick = function () {
   );
 };
 
-
 function obtenerPrimerUltimoValor(objetoJSON) {
   const rates = objetoJSON.rates;
   const fechas = Object.keys(rates);
@@ -79,7 +77,7 @@ function obtenerPrimerUltimoValor(objetoJSON) {
   const primerValor = rates[primerFecha];
   const ultimoValor = rates[ultimaFecha];
 
-  crearListaDeValores(primerValor, ultimoValor) 
+  crearListaDeValores(primerValor, ultimoValor);
   compararValores(primerValor, ultimoValor);
 }
 
@@ -110,17 +108,18 @@ function compararValores(primerValor, ultimoValor) {
       ((precioFinal - precioInicial) / precioInicial) * 100;
     const porcentajeReducido = porcentajeDeCambio.toFixed(2);
     const h3 = document.createElement("h3");
-    if(porcentajeReducido >0){
-      h3.classList.add("subio")
-    } else if(porcentajeReducido < 0){
-      h3.classList.add("bajo")
-    } else{
-      h3.classList.add("igual-valor")
+    if (porcentajeReducido > 0) {
+      h3.classList.add("subio");
+    } else if (porcentajeReducido < 0) {
+      h3.classList.add("bajo");
+    } else {
+      h3.classList.add("igual-valor");
     }
     h3.textContent = `${porcentajeReducido}%`;
     fluctuacionDeValor.appendChild(h3);
-  }}
-function borrarConversionAnterior(){
+  }
+}
+function borrarConversionAnterior() {
   listaDelPrimerDia.innerHTML = "";
   listaDelSegundoDia.innerHTML = "";
   fluctuacionDeValor.innerHTML = "";

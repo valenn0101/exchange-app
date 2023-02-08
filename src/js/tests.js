@@ -12,19 +12,17 @@ function validarMontos(dineroIngresado) {
   return "";
 }
 
-
 function validarPrimeraFecha(primeraFecha) {
-    let fechaInicial = new Date(primeraFecha);
-    let fechaActual = new Date();
-    let fechaUnAnioAntes = new Date(fechaActual);
-    fechaUnAnioAntes.setFullYear(fechaActual.getFullYear() - 1);
-  
-    if (fechaInicial < fechaUnAnioAntes) {
-      return "La primera fecha no puede ser menor a 365 dias del dia de hoy.";
-    }
-    return "";
+  let fechaInicial = new Date(primeraFecha);
+  let fechaActual = new Date();
+  let fechaUnAnioAntes = new Date(fechaActual);
+  fechaUnAnioAntes.setFullYear(fechaActual.getFullYear() - 1);
+
+  if (fechaInicial < fechaUnAnioAntes) {
+    return "La primera fecha no puede ser menor a 365 dias del dia de hoy.";
   }
-  
+  return "";
+}
 
 function validarSegundaFecha(segundaFecha) {
   let fechaFinal = new Date(segundaFecha);
@@ -47,8 +45,8 @@ function validarFormularioMontos() {
 }
 
 function validarFormularioFechas() {
-    let primeraFecha = document.querySelector("#fecha-inicial").value;
-    let segundaFecha = document.querySelector("#fecha-final").value;  
+  let primeraFecha = document.querySelector("#fecha-inicial").value;
+  let segundaFecha = document.querySelector("#fecha-final").value;
   const erroresPrimeraFecha = validarPrimeraFecha(primeraFecha);
   const erroresSegundaFecha = validarSegundaFecha(segundaFecha);
 
